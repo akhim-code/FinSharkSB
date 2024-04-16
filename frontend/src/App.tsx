@@ -10,11 +10,17 @@ function App() {
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  const onClick = async (e: SyntheticEvent) => {
+  const onPortfolioCreate = (e : SyntheticEvent) => {
+    e.preventDefault();
+    console.log(e);
+  }
+
+  const onSearchSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
     const result = await searchCompanies(search);
     if (typeof result === "string") {
       setServerError(result);
@@ -27,8 +33,8 @@ function App() {
   
   return (
     <div className="App">
-      <Search onClick={onClick} search={search} handleChange={handleChange} />
-      <CardList searchResults={searchResult}/>
+      <Search onSearchSubmit={onSearchSubmit} search={search} handleSearchChange={handleSearchChange} />
+      <CardList searchResults={searchResult} onPortfolioCreate={onPortfolioCreate}/>
       {/* logical AND operator */}
       {serverError && <div>{serverError}</div>}                
       {/* ternary operator */}   
