@@ -4,7 +4,7 @@ import CardList from './Components/CardList/CardList';
 import Search from './Components/Search/Search';
 import { searchCompanies } from './api';
 import { CompanySearch } from './company';
-import ListPortfolio from './Components/ListPortfolio/ListPortfolio';
+import ListPortfolio from './Components/Portfolio/ListPortfolio/ListPortfolio';
 
 function App() {
   const [search, setSearch] = useState<string>("");
@@ -26,6 +26,12 @@ function App() {
     setPortfolioValues(updatedPortfolio);
   }
 
+  const onPortfolioDelete = (e : any) => {
+    e.preventDefault();
+    const removed = portfolioValues.filter((value) => value !== e.target[0].value);
+    setPortfolioValues(removed);
+  };
+
   const onSearchSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const result = await searchCompanies(search);
@@ -41,12 +47,13 @@ function App() {
   return (
     <div className="App">
       <Search onSearchSubmit={onSearchSubmit} search={search} handleSearchChange={handleSearchChange} />
-      <ListPortfolio portfolioValues={portfolioValues} />
+      <ListPortfolio 
+        portfolioValues={portfolioValues}
+        onPortfolioDelete={onPortfolioDelete}
+      />
       <CardList searchResults={searchResult} onPortfolioCreate={onPortfolioCreate}/>
       {/* logical AND operator */}
       {serverError && <div>{serverError}</div>}                
-      {/* ternary operator */}   
-      {/* {serverError ? <div>Connected</div> : <div>Unable to connect to api</div>} */}    
     </div>
   );
 }
