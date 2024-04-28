@@ -11,7 +11,7 @@ const Sidebar = (props: Props) => {
       <div className="flex-col min-h-full px-0 flex flex-wrap items-center justify-between w-full mx-auto overflow-y-auto overflow-x-hidden">
         <div className="flex bg-white flex-col items-stretch opacity-100 relative mt-4 overflow-y-auto overflow-x-hidden h-auto z-40 items-center flex-1 rounded w-full">
           <div className="md:flex-col md:min-w-full flex flex-col list-none">
-          <Link
+            <Link
               to="company-profile"
               className="flex md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
             >
