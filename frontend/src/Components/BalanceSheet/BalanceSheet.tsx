@@ -3,39 +3,76 @@ import { CompanyBalanceSheet } from "../../company";
 import { useOutletContext } from "react-router-dom";
 import RatioList from "../RatioList/RatioList";
 import { getBalanceSheet } from "../../api";
-import Table from "../Table/Table";
 import Spinner from "../Spinner/Spinner";
+import { formatLargeMonetaryNumber } from "../../Helpers/NumberFormatting";
 
 type Props = {};
 
 const config = [
   {
-    label: "Cash",
-    render: (company: CompanyBalanceSheet) => company.cashAndCashEquivalents,
+    label: <div className="font-bold">Total Assets</div>,
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.totalAssets),
   },
   {
-    label: "Inventory",
-    render: (company: CompanyBalanceSheet) => company.inventory,
+    label: "Current Assets",
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.totalCurrentAssets),
   },
   {
-    label: "Other Current Assets",
-    render: (company: CompanyBalanceSheet) => company.otherCurrentAssets,
+    label: "Total Cash",
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.cashAndCashEquivalents),
   },
   {
-    label: "Minority Interest",
-    render: (company: CompanyBalanceSheet) => company.minorityInterest,
+    label: "Property & equipment",
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.propertyPlantEquipmentNet),
   },
   {
-    label: "Other Non-Current Assets",
-    render: (company: CompanyBalanceSheet) => company.otherNonCurrentAssets,
+    label: "Intangible Assets",
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.intangibleAssets),
   },
   {
     label: "Long Term Debt",
-    render: (company: CompanyBalanceSheet) => company.longTermDebt,
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.longTermDebt),
   },
   {
     label: "Total Debt",
-    render: (company: CompanyBalanceSheet) => company.otherCurrentLiabilities,
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.otherCurrentLiabilities),
+  },
+  {
+    label: <div className="font-bold">Total Liabilites</div>,
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.totalLiabilities),
+  },
+  {
+    label: "Current Liabilities",
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.totalCurrentLiabilities),
+  },
+  {
+    label: "Long-Term Debt",
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.longTermDebt),
+  },
+  {
+    label: "Long-Term Income Taxes",
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.otherLiabilities),
+  },
+  {
+    label: "Stakeholder's Equity",
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.totalStockholdersEquity),
+  },
+  {
+    label: "Retained Earnings",
+    render: (company: CompanyBalanceSheet) =>
+      formatLargeMonetaryNumber(company.retainedEarnings),
   },
 ];
 
@@ -44,7 +81,7 @@ const BalanceSheet = (props: Props) => {
   const [companyData, setCompanyData] = useState<CompanyBalanceSheet>();
   useEffect(() => {
     const getCompanyData = async () => {
-      const value = await getBalanceSheet(ticker!);
+      const value = await getBalanceSheet(ticker);
       setCompanyData(value?.data[0]);
     };
     getCompanyData();
