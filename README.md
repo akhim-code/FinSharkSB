@@ -13,3 +13,6 @@ Router : npm install -save react-router / npm install -save react-router-dom / n
 React Icons : npm install react-icons --save    
 
 Spinner : npm install react-spinners           
+
+Recharts : npm install recharts
+
