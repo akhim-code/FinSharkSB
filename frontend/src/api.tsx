@@ -6,7 +6,8 @@ import {
         CompanyKeyMetrics, 
         CompanyIncomeStatement,
         CompanyBalanceSheet,
-        CompanyCashFlow
+        CompanyCashFlow,
+        CompanyTenK
     } from "./company";
 
 export interface SearchResponse {
@@ -44,7 +45,7 @@ export const getCompanyProfile = async (query: string) => {
     }
   };
 
-  export const getKeyMetrics = async (query: string) => {
+export const getKeyMetrics = async (query: string) => {
     try {
       const data = await axios.get<CompanyKeyMetrics[]>(
         `https://financialmodelingprep.com/api/v3/key-metrics-ttm/AAPL?limit=40&apikey=${process.env.REACT_APP_API_KEY}`
@@ -55,7 +56,7 @@ export const getCompanyProfile = async (query: string) => {
     }
   };
   
-  export const getIncomeStatement = async (query: string) => {
+export const getIncomeStatement = async (query: string) => {
     try {
       const data = await axios.get<CompanyIncomeStatement[]>(
         `https://financialmodelingprep.com/api/v3/income-statement/${query}?limit=40&apikey=${process.env.REACT_APP_API_KEY}`
@@ -66,7 +67,7 @@ export const getCompanyProfile = async (query: string) => {
     }
   };
 
-  export const getBalanceSheet = async (query: string) => {
+export const getBalanceSheet = async (query: string) => {
     try {
       const data = await axios.get<CompanyBalanceSheet[]>(
         `https://financialmodelingprep.com/api/v3/balance-sheet-statement/${query}?limit=20&apikey=${process.env.REACT_APP_API_KEY}`
@@ -77,7 +78,7 @@ export const getCompanyProfile = async (query: string) => {
     }
   };
 
-  export const getCashFlow = async (query: string) => {
+export const getCashFlow = async (query: string) => {
     try {
       const data = await axios.get<CompanyCashFlow[]>(
         `https://financialmodelingprep.com/api/v3/cash-flow-statement/${query}?limit=100&apikey=${process.env.REACT_APP_API_KEY}`
@@ -87,3 +88,16 @@ export const getCompanyProfile = async (query: string) => {
       console.log("error message: ", error.message);
     }
   };
+
+export const getTenK = async (query: string) => {
+  try {
+    const data = await axios.get<CompanyTenK[]>(
+      `https://financialmodelingprep.com/api/v3/sec_filings/${query}?type=10-K&page=0&apikey=${process.env.REACT_APP_API_KEY}`
+    );
+    return data;
+  } catch (error: any) {
+    console.log("error message: ", error.message);
+  }
+  };
+
+  
