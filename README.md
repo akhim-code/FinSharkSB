@@ -16,3 +16,5 @@ Spinner : npm install react-spinners
 
 Recharts : npm install recharts
 
+Toast : npm install react-toastify
+
