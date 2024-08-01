@@ -1,7 +1,5 @@
 package com.finshark.backend.controllers;
 
-import java.net.URI;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +34,7 @@ public class AuthController {
     public ResponseEntity<AppUserDto> register(@RequestBody @Valid SignUpDto appUser) {
         AppUserDto createdUser = appUserService.register(appUser);
         createdUser.setToken(userAuthenticationProvider.createToken(appUser.getUsername()));
-        return ResponseEntity.created(URI.create("/app_users/" + createdUser.getId())).body(createdUser);
+        return ResponseEntity.ok(createdUser);
     }
 
 }

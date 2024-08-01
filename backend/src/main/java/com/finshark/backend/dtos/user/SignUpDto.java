@@ -11,13 +11,7 @@ import jakarta.validation.constraints.NotEmpty;
 @Getter
 @Setter
 public class SignUpDto {
-
-    @NotEmpty
-    private String firstName;
-
-    @NotEmpty
-    private String lastName;
-
+    
     @NotEmpty
     private String username;
 

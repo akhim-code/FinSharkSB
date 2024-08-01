@@ -12,8 +12,6 @@ public interface AppUserMapper {
 
     static AppUser signUpToAppUser(SignUpDto signUpDto) {
         AppUser appUser = new AppUser();
-        appUser.setFirstName(signUpDto.getFirstName());
-        appUser.setLastName(signUpDto.getLastName());
         appUser.setUsername(signUpDto.getUsername());
         appUser.setEmail(signUpDto.getEmail());
         return appUser;

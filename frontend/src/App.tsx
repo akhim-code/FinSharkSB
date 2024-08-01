@@ -5,16 +5,15 @@ import Navbar from './Components/Navbar/Navbar';
 import { Outlet } from 'react-router';
 import { UserProvider } from "./Context/UseAuth";
 
+
 function App() {
 
   return (
-    <>
-      <UserProvider>
+    <UserProvider>
         <Navbar />
         <Outlet />
         <ToastContainer />
-      </UserProvider>
-    </>
+    </UserProvider>
   );
 }
 

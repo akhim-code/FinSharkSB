@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent, SyntheticEvent } from "react";
-import Navbar from "../../Components/Navbar/Navbar";
 import { CompanySearch } from "../../company";
 import { searchCompanies } from "../../api";
 import Search from "../../Components/Search/Search";
@@ -40,7 +39,6 @@ const SearchPage = (props: Props) => {
   const onSearchSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const result = await searchCompanies(search);
-    //setServerError(result.data);
     if (typeof result === "string") {
       setServerError(result);
     } else if (Array.isArray(result.data)) {
