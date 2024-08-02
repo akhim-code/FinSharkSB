@@ -70,6 +70,7 @@ export const UserProvider = ({ children }: Props) => {
           };
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token);
+          axios.defaults.headers.common["Authorization"] = "Bearer " + token;
           setUser(userObj);
           toast.success("Login Success!");
           navigate("/search");
@@ -87,6 +88,7 @@ export const UserProvider = ({ children }: Props) => {
     localStorage.removeItem("user");
     setUser(null);
     setToken("");
+    axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     navigate("/");
   };
 

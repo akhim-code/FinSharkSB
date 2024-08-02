@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.finshark.backend.dtos.comment.CommentDto;
@@ -34,6 +35,11 @@ public class CommentsController {
     @GetMapping("/api/comment/")
     public ResponseEntity<List<CommentDto>> findAllComments() {
         return ResponseEntity.ok(commentsService.findAllComments());
+    }
+
+    @GetMapping("/api/comment/search")
+    public ResponseEntity<List<CommentDto>> findCommentsBySymbol(@RequestParam(value = "symbol") String symbol) {
+        return ResponseEntity.ok(commentsService.findCommentsbySymbol(symbol));
     }
 
     @GetMapping("/api/comment/{commentId}")

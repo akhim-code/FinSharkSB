@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import com.finshark.backend.dtos.comment.CommentDto;
 import com.finshark.backend.dtos.comment.CreateCommentDto;
 import com.finshark.backend.dtos.comment.UpdateCommentDto;
+import com.finshark.backend.dtos.stock.StockDto;
 import com.finshark.backend.entities.AppUser;
 import com.finshark.backend.entities.Comment;
 import com.finshark.backend.entities.Stock;
 import com.finshark.backend.exceptions.AppException;
 import com.finshark.backend.mappers.CommentsMapper;
+import com.finshark.backend.mappers.StocksMapper;
 import com.finshark.backend.repositories.AppUserRepository;
 import com.finshark.backend.repositories.CommentsRepository;
 import com.finshark.backend.repositories.StocksRepository;
@@ -35,8 +37,28 @@ public class CommentsServiceImpl implements CommentsService{
     }
 
     @Override
+    public List<CommentDto> findCommentsbySymbol(String symbol) {
+        Stock stock = stocksRepository.findStockBySymbol(symbol);
+        if (stock == null){
+            throw new AppException("Stock not found", HttpStatus.NOT_FOUND);
+        }
+        StockDto stockDto = StocksMapper.toStockDto(stock);
+        return stockDto.getCommentDtos();
+    }
+
+    @Override
     public CommentDto findByCommentId(Long commentId) {
         return CommentsMapper.toCommentDto(commentsRepository.findById(commentId).orElseThrow(() -> new AppException("Comment not found", HttpStatus.NOT_FOUND)));
+    }
+
+    @Override
+    public List<CommentDto> findCommentsbyStockSymbol(String stockSymbol) {
+        Stock stock = stocksRepository.findStockBySymbol(stockSymbol);
+        if (stock == null){
+            throw new AppException("Stock not found", HttpStatus.NOT_FOUND);
+        }
+        StockDto stockDto = StocksMapper.toStockDto(stock);
+        return stockDto.getCommentDtos();
     }
 
     @Override
