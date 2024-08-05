@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.finshark.backend.dtos.stock.StockDto;
 import com.finshark.backend.dtos.user.AppUserDto;
 import com.finshark.backend.entities.Stock;
 import com.finshark.backend.repositories.StocksRepository;
@@ -27,7 +28,7 @@ public class PortfolioController {
     private final StocksRepository stocksRepository;
 
     @GetMapping("/api/portfolio/")
-    public ResponseEntity<List<Stock>> findAppUserPortfolio(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+    public ResponseEntity<List<StockDto>> findAppUserPortfolio(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
     @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ResponseEntity.ok(portfolioService.findAppUserPortfolio(((AppUserDto) authentication.getPrincipal()).getId(), pageNo, pageSize));
